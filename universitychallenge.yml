@@ -1,0 +1,19 @@
+services:
+ universitychallengedb:
+  image: mwdf/universitychallengedb
+  container_name: universitychallengedb
+  ports:
+   - "5433:5432"
+ universitychallengeweb:
+  image: mwdf/universitychallengeweb
+  container_name: universitychallengeweb
+  depends_on:
+   - universitychallengedb
+  environment:
+   - UC_HOST=0.0.0.0
+   - UC_PORT=8082
+   - UC_DBCONN=universitychallengedb:5432/universitychallenge
+   - UC_DBUSER=postgres
+   - UC_DBPW=postgres
+  ports:
+   - "8081:8082"
